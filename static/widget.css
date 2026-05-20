@@ -1,0 +1,243 @@
+/* Bank Chat Widget Styles */
+#bank-chat-widget * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+}
+
+/* Floating button */
+#bank-chat-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #1a3a6b;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: transform 0.2s, background 0.2s;
+}
+#bank-chat-btn:hover { background: #0f2550; transform: scale(1.05); }
+#bank-chat-btn svg { width: 28px; height: 28px; }
+
+/* Unread badge */
+#bank-chat-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #e53935;
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chat window */
+#bank-chat-window {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 360px;
+  height: 520px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9998;
+  animation: chatSlideIn 0.25s ease;
+}
+@keyframes chatSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+#bank-chat-header {
+  background: #1a3a6b;
+  color: #fff;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+#bank-chat-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+#bank-chat-avatar svg { width: 22px; height: 22px; }
+#bank-chat-header-info { flex: 1; }
+#bank-chat-title { font-size: 15px; font-weight: 600; }
+#bank-chat-subtitle { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+#bank-chat-close {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+}
+#bank-chat-close:hover { opacity: 1; background: rgba(255,255,255,0.15); }
+
+/* Status bar */
+#bank-chat-status {
+  background: #e8f0fe;
+  color: #1a3a6b;
+  font-size: 12px;
+  padding: 6px 16px;
+  text-align: center;
+  display: none;
+  flex-shrink: 0;
+}
+
+/* Messages area */
+#bank-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f7f9fc;
+}
+#bank-chat-messages::-webkit-scrollbar { width: 4px; }
+#bank-chat-messages::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+/* Message bubbles */
+.bcw-msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+.bcw-msg.user {
+  align-self: flex-end;
+  background: #1a3a6b;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.bcw-msg.ai, .bcw-msg.agent {
+  align-self: flex-start;
+  background: #fff;
+  color: #222;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 12px 16px;
+}
+.bcw-msg.agent {
+  border-left: 3px solid #1a3a6b;
+  background: #f0f4ff;
+}
+.bcw-sender {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a3a6b;
+  margin-bottom: 3px;
+}
+.bcw-time {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-top: 4px;
+  text-align: left;
+}
+.bcw-msg.user .bcw-time {
+  text-align: right;
+  color: #fff;
+}
+
+/* Typing indicator — lives inside #bank-chat-messages */
+#bank-chat-typing {
+  align-self: flex-start;
+  background: #fff;
+  border-radius: 16px;
+  border-bottom-left-radius: 4px;
+  padding: 10px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: none;
+  flex-shrink: 0;
+}
+.bcw-dots { display: flex; gap: 4px; align-items: center; height: 16px; }
+.bcw-dots span {
+  width: 6px; height: 6px;
+  background: #999;
+  border-radius: 50%;
+  animation: bcwBounce 1.2s infinite;
+}
+.bcw-dots span:nth-child(2) { animation-delay: 0.2s; }
+.bcw-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bcwBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+/* Input area */
+#bank-chat-input-area {
+  padding: 12px 16px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+#bank-chat-input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  max-height: 80px;
+  overflow-y: auto;
+  line-height: 1.4;
+  transition: border-color 0.2s;
+}
+#bank-chat-input:focus { border-color: #1a3a6b; }
+#bank-chat-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1a3a6b;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+#bank-chat-send:hover { background: #0f2550; }
+#bank-chat-send:disabled { background: #ccc; cursor: not-allowed; }
+#bank-chat-send svg { width: 18px; height: 18px; }
+
+/* Responsive */
+@media (max-width: 420px) {
+  #bank-chat-window { width: calc(100vw - 16px); right: 8px; bottom: 80px; height: 70vh; }
+  #bank-chat-btn { bottom: 16px; right: 16px; }
+}
